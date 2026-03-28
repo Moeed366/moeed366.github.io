@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta name="google-signin-client_id" content="633242632537-4lcbqcjnve1c0upp5nj8ebv4dda2al47.apps.googleusercontent.com">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+
+  <title>MOEED MAQSOOD</title>
+
+  <!-- Load Google Sign-In JavaScript API -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background: linear-gradient(100deg, #8a07ff, #f500d7);
+    }
+
+    #loading {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: linear-gradient(100deg, #8a07ff, #f500d7);
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    .loader {
+      color: #ffcc00;
+      font-family: Consolas, Menlo, Monaco, monospace;
+      font-weight: bold;
+      font-size: 12vh;
+      opacity: 0.8;
+    }
+
+    .loader span {
+      display: inline-block;
+      animation: pulse 0.4s alternate infinite ease-in-out;
+    }
+
+    .loader span:nth-child(1) {
+      color: red;
+      font-size: 80%;
+      animation: pulse-red 0.8s alternate infinite ease-in-out;
+    }
+
+    .loader span:nth-child(2) {
+      color: white;
+      font-size: 80%;
+      animation: pulse-white 0.8s alternate-reverse infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      to {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes pulse-red {
+      to {
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes pulse-white {
+      to {
+        opacity: 0.5;
+      }
+    }
+
+    p.loading-text {
+      color: #ffcc00;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+
+    .powered-by {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      color: white;
+      opacity: 0.8;
+      z-index: 20;
+    }
+
+    .scissor {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(135deg, #ffcc00, #ffdd44);
+      z-index: 15;
+    }
+
+    .left-scissor {
+      left: 0;
+      transform: translateX(0);
+      animation: slide-left 1s forwards;
+    }
+
+    .right-scissor {
+      right: 0;
+      transform: translateX(0);
+      animation: slide-right 1s forwards;
+    }
+
+    @keyframes slide-left {
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    @keyframes slide-right {
+      to {
+        transform: translateX(100%);
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Scissor Cut Elements -->
+<div id="left-scissor" class="scissor left-scissor"></div>
+<div id="right-scissor" class="scissor right-scissor"></div>
+
+<!-- Loading Screen -->
+<div id="loading">
+  <div class="loader">
+    <span>{</span><span>}</span>
+  </div>
+  <p class="loading-text">Loading...</p>
+  <div class="powered-by">Powered by Flutter</div>
+</div>
+
+<!-- Flutter App -->
+<script>
+  const loadingElement = document.getElementById('loading');
+  const leftScissor = document.getElementById('left-scissor');
+  const rightScissor = document.getElementById('right-scissor');
+
+  window.addEventListener('flutter-first-frame', () => {
+    loadingElement.style.display = 'none';
+    leftScissor.style.display = 'block';
+    rightScissor.style.display = 'block';
+    setTimeout(() => {
+      leftScissor.style.animation = 'slide-left 1s forwards';
+      rightScissor.style.animation = 'slide-right 1s forwards';
+      setTimeout(() => {
+        leftScissor.remove();
+        rightScissor.remove();
+      }, 1000);
+    }, 200);
+  });
+</script>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCAHNIhv3Ctir7xX4RTy3UfrXTjWPWB8Q4",
+    authDomain: "moeed-portfolio-e6aed.firebaseapp.com",
+    projectId: "moeed-portfolio-e6aed",
+    storageBucket: "moeed-portfolio-e6aed.firebasestorage.app",
+    messagingSenderId: "633242632537",
+    appId: "1:633242632537:web:c11b6b9d6470f6f035cc48"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+</script>
+
+<script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
